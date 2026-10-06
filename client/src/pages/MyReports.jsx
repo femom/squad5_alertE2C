@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { m } from 'framer-motion'
-import { AlertTriangle, Cable, Lightbulb, PlusCircle, Zap } from 'lucide-react'
-import { api } from '../lib/api.js'
+import { AlertTriangle, Cable, Lightbulb, LoaderCircle, PlusCircle, Zap } from 'lucide-react'
+import { useReports } from '../contexts/ReportsContext.jsx'
 import CitizenBottomNav from '../components/CitizenBottomNav.jsx'
 import CitizenDesktopHeader from '../components/CitizenDesktopHeader.jsx'
 import ReportLocation from '../components/ReportLocation.jsx'
@@ -78,24 +78,19 @@ function EmptyState() {
 
 export default function MyReports() {
   const navigate = useNavigate()
-  const [reports, setReports] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const { reports, loading, error, loadReports } = useReports()
 
   useEffect(() => {
     if (!localStorage.getItem('alert-e2c-token')) {
       navigate('/login', { replace: true })
       return
     }
-    api.get('/reports/mine')
-      .then(({ data }) => setReports([...data].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())))
-      .catch(() => setError('Impossible de charger vos signalements. Vérifiez votre connexion puis réessayez.'))
-      .finally(() => setLoading(false))
+    loadReports().catch(() => {})
   }, [navigate])
 
   const enCours = reports.filter((report) => report.statut !== 'Résolu').length
   const reportContent = loading
-    ? <div className="rounded-2xl border border-gray-100 bg-white p-5 text-sm text-gray-500 dark:border-white/10 dark:bg-[#1B1F3B]/60 dark:text-gray-300">Chargement de vos signalements…</div>
+    ? <div className="flex items-center gap-2 rounded-2xl border border-gray-100 bg-white p-5 text-sm text-gray-500 dark:border-white/10 dark:bg-[#1B1F3B]/60 dark:text-gray-300"><LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />Chargement de vos signalements…</div>
     : error
       ? <div role="alert" className="rounded-2xl border border-red-100 bg-white p-5 text-sm text-red-700 dark:border-red-900/40 dark:bg-[#1B1F3B]/60 dark:text-red-300">{error}</div>
       : reports.length === 0

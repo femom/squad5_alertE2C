@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ChevronRight, ClipboardList, Zap } from 'lucide-react'
-import { api, getAuthUser } from '../lib/api.js'
+import { ChevronRight, ClipboardList, LoaderCircle, Zap } from 'lucide-react'
+import { getAuthUser } from '../lib/api.js'
+import { useReports } from '../contexts/ReportsContext.jsx'
 import CitizenBottomNav from '../components/CitizenBottomNav.jsx'
 import CitizenDesktopHeader from '../components/CitizenDesktopHeader.jsx'
 import ReportLocation from '../components/ReportLocation.jsx'
@@ -17,7 +18,7 @@ function LatestReport({ report, loading }) {
     <section className="citizen-card rounded-3xl border border-white/90 bg-white/95 p-5 text-[#1B1F3B] shadow-md shadow-slate-200/40 backdrop-blur-sm dark:border-white/10 dark:bg-[#1B1F3B]/95 dark:text-white dark:shadow-none" aria-labelledby="latest-report-heading">
       <h2 id="latest-report-heading" className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">Dernier signalement</h2>
       {loading ? (
-        <p className="text-sm text-gray-400 dark:text-gray-400">Chargement de vos signalements…</p>
+        <p className="flex items-center gap-2 text-sm text-gray-400 dark:text-gray-400"><LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />Chargement de vos signalements…</p>
       ) : report ? (
         <Link to={`/mes-signalements/${report.id}`} className="flex items-center justify-between gap-3">
           <span className="min-w-0"><span className="block truncate text-sm font-bold text-[#1B1F3B] dark:text-gray-100">{report.type}</span><ReportLocation report={report} className="mt-1 text-xs text-gray-500 dark:text-gray-400" /></span>
@@ -33,8 +34,7 @@ function LatestReport({ report, loading }) {
 export default function CitizenHome() {
   const navigate = useNavigate()
   const user = getAuthUser()
-  const [latestReport, setLatestReport] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { reports, loading, loadReports } = useReports()
 
   useEffect(() => {
     if (!localStorage.getItem('alert-e2c-token')) {
@@ -42,14 +42,10 @@ export default function CitizenHome() {
       return
     }
 
-    api.get('/reports/mine')
-      .then(({ data }) => {
-        const recent = [...data].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        setLatestReport(recent[0] || null)
-      })
-      .catch(() => setLatestReport(null))
-      .finally(() => setLoading(false))
+    loadReports().catch(() => {})
   }, [navigate])
+
+  const latestReport = reports[0] || null
 
   const nom = user?.nom || user?.nomComplet || ''
   const prenom = nom.trim().split(/\s+/)[0] || ''

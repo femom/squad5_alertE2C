@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { m } from 'framer-motion'
-import { AlertTriangle, ArrowRight, Cable, ClipboardCheck, Lightbulb, MapPin, ShieldAlert, Zap } from 'lucide-react'
+import { AlertTriangle, ArrowRight, Cable, ClipboardCheck, Lightbulb, LoaderCircle, MapPin, ShieldAlert, Zap } from 'lucide-react'
 import { api } from '../lib/api.js'
+import { useReports } from '../contexts/ReportsContext.jsx'
 import CitizenBottomNav from '../components/CitizenBottomNav.jsx'
 import CitizenDesktopHeader from '../components/CitizenDesktopHeader.jsx'
 
@@ -15,6 +16,7 @@ const typesIncident = [
 
 export default function NewReport() {
   const navigate = useNavigate()
+  const { addReport } = useReports()
   const [type, setType] = useState('Coupure')
   const [description, setDescription] = useState('')
   const [adresse, setAdresse] = useState('')
@@ -88,7 +90,8 @@ export default function NewReport() {
 
     setChargement(true)
     try {
-      await api.post('/reports', formData, { headers: { Authorization: `Bearer ${token}` } })
+      const { data } = await api.post('/reports', formData, { headers: { Authorization: `Bearer ${token}` } })
+      addReport(data)
       navigate('/mes-signalements', { replace: true })
     } catch (requestError) {
       setErreur(requestError.response?.data?.error || 'Le signalement n’a pas pu être envoyé. Réessayez.')
@@ -161,7 +164,7 @@ export default function NewReport() {
             {erreur && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{erreur}</p>}
 
             <button type="submit" disabled={chargement} className="yellow-flash group flex w-full items-center justify-between rounded-xl px-4 py-3.5 font-bold disabled:cursor-wait disabled:opacity-60">
-              <span>{chargement ? 'Envoi du signalement…' : 'Envoyer le signalement'}</span><span aria-hidden="true" className="flash-arrow">→</span>
+              <span className="flex items-center gap-2">{chargement && <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />}{chargement ? 'Envoi du signalement…' : 'Envoyer le signalement'}</span><span aria-hidden="true" className="flash-arrow">→</span>
             </button>
           </form>
 
