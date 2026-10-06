@@ -38,7 +38,7 @@ function ProgressTimeline({ report }) {
         {steps.map((step, index) => (
           <li key={step.title} className="relative flex gap-4 pb-6 last:pb-0">
             {index < steps.length - 1 && <span className={`absolute left-[11px] top-6 h-[calc(100%-1.5rem)] w-px ${step.complete ? 'bg-green-300 dark:bg-green-700' : 'bg-gray-200 dark:bg-white/10'}`} aria-hidden="true" />}
-            <span className={`relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${step.complete ? 'bg-[#1B1F3B] text-white dark:bg-[#F4B436] dark:text-[#1B1F3B]' : step.active ? 'bg-[#F4B436] text-[#1B1F3B]' : 'bg-gray-100 text-gray-400 dark:bg-white/10 dark:text-gray-500'}`}>
+            <span className={`relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${step.complete ? 'bg-[#1B1F3B] text-white dark:bg-[#F5B942] dark:text-[#1B1F3B]' : step.active ? 'bg-[#F5B942] text-[#1B1F3B]' : 'bg-gray-100 text-gray-400 dark:bg-white/10 dark:text-gray-500'}`}>
               {step.complete ? <Check className="h-3.5 w-3.5" /> : <Clock3 className="h-3.5 w-3.5" />}
             </span>
             <div className="pt-0.5">
@@ -86,7 +86,7 @@ export default function ReportDetail() {
       ? <div role="alert" className="rounded-2xl border border-red-200/70 bg-white/75 p-6 text-sm text-red-700 shadow-sm backdrop-blur-xl dark:border-red-900/40 dark:bg-[#1B1F3B]/80 dark:text-red-300">{error}</div>
       : report && (
         <div className="space-y-5">
-          <section className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-white/80 border-t-2 border-t-[#F4B436] bg-white/70 p-6 shadow-sm shadow-slate-900/5 backdrop-blur-xl dark:border-white/10 dark:border-t-[#F4B436] dark:bg-[#1B1F3B]/80 dark:shadow-none">
+          <section className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-white/80 border-t-2 border-t-[#F5B942] bg-white/70 p-6 shadow-sm shadow-slate-900/5 backdrop-blur-xl dark:border-white/10 dark:border-t-[#F5B942] dark:bg-[#1B1F3B]/80 dark:shadow-none">
             <div className="min-w-0 border-l-2 border-[#1B1F3B]/15 pl-4 dark:border-white/20"><p className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-400">Référence du signalement</p><h2 className="break-all text-xl font-extrabold tracking-tight text-[#1B1F3B] dark:text-white md:text-2xl">{report.reference || `E2C-${report.id}`}</h2><p className="mt-2 text-xs text-gray-500 dark:text-gray-400">Envoyé le {formatDate(report.createdAt)}</p></div>
             <span className={`rounded-full px-3 py-1 text-xs font-bold ${statusStyle(report.statut)}`}>{report.statut || 'Nouveau'}</span>
           </section>
@@ -113,7 +113,7 @@ export default function ReportDetail() {
         <header className="mb-5 md:mb-6">
           <div className="mb-4 flex items-center justify-between">
             <Link to="/mes-signalements" aria-label="Retour à mes signalements" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-[#1B1F3B] transition hover:bg-gray-50 dark:border-white/10 dark:bg-[#1B1F3B]/90 dark:text-white dark:hover:bg-white/10"><ArrowLeft className="h-5 w-5" /></Link>
-            <Link to="/accueil" aria-label="Accueil E2C" className="inline-flex items-center gap-2 md:hidden"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B1F3B] text-white"><Zap className="h-4 w-4" /></span><span className="text-lg font-extrabold tracking-tight text-[#1B1F3B] dark:text-white">E2C<span className="text-[#F4B436]">.</span></span></Link>
+            <Link to="/accueil" aria-label="Accueil E2C" className="inline-flex items-center gap-2 md:hidden"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1B1F3B] text-white"><Zap className="h-4 w-4" /></span><span className="text-lg font-extrabold tracking-tight text-[#1B1F3B] dark:text-white">E2C<span className="text-[#F5B942]">.</span></span></Link>
           </div>
           <h1 className="text-lg font-bold text-[#1B1F3B] dark:text-white md:text-2xl">Suivi du signalement</h1>
         </header>

@@ -97,6 +97,9 @@ export default function NewReport() {
     }
   }
 
+  const mapQuery = position ? `${position.latitude},${position.longitude}` : adresse.trim()
+  const mapUrl = mapQuery ? `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=16&output=embed` : ''
+
   return (
     <div className="min-h-screen bg-[#F7F6F0] text-[#1B1F3B] dark:bg-[#0E1226] dark:text-gray-100">
       <div className="block md:hidden">
@@ -113,7 +116,7 @@ export default function NewReport() {
         <div className="mb-7 hidden md:block"><p className="text-xs font-bold uppercase tracking-wider text-gray-400">Votre espace citoyen</p><h1 className="mt-1 text-3xl font-extrabold">Signaler un incident</h1><p className="mt-2 text-sm text-gray-500">Décrivez l’incident pour permettre à nos équipes d’intervenir.</p></div>
 
         <aside role="note" className="e2c-card mb-6 flex items-start gap-3 rounded-2xl border border-amber-200/80 bg-amber-50/80 p-4 text-amber-950 dark:border-amber-300/15 dark:bg-amber-950/25 dark:text-amber-100">
-          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-300/10 dark:text-[#F4B436]"><ShieldAlert className="h-5 w-5" aria-hidden="true" /></span>
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700 dark:bg-amber-300/10 dark:text-[#F5B942]"><ShieldAlert className="h-5 w-5" aria-hidden="true" /></span>
           <div><h2 className="text-sm font-bold">Merci d’être sincère dans votre signalement</h2><p className="mt-1 text-xs leading-relaxed text-amber-900/80 dark:text-amber-100/75">Les fausses déclarations volontaires peuvent entraîner des sanctions prévues par la loi, y compris une amende. Vérifiez les informations avant d’envoyer votre signalement.</p></div>
         </aside>
 
@@ -142,7 +145,11 @@ export default function NewReport() {
                 <input id="adresse" required value={adresse} onChange={(event) => setAdresse(event.target.value)} placeholder="Avenue, rue, quartier…" className="min-w-0 flex-1 rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm font-normal text-gray-900 placeholder:text-gray-400 focus:border-[#2B4C9B] focus:outline-none dark:border-white/10 dark:bg-[#222A4A] dark:text-white dark:placeholder:text-gray-400" />
                 <button type="button" onClick={utiliserPosition} disabled={localisation} className="shrink-0 rounded-xl border border-gray-200 bg-white px-3 text-xs font-semibold text-[#2B4C9B] disabled:opacity-60 dark:border-white/10 dark:bg-[#222A4A] dark:text-blue-100">{localisation ? 'Position…' : 'Ma position'}</button>
               </div>
-              {position && <p className="mt-2 text-xs text-green-700 dark:text-green-300">Position GPS enregistrée. Saisissez aussi une rue ou un quartier ; les coordonnées ne seront pas affichées. <a className="font-semibold underline" href={`https://www.google.com/maps?q=${position.latitude},${position.longitude}`} target="_blank" rel="noreferrer">Voir sur la carte</a></p>}
+              {position && <p className="mt-2 text-xs text-green-700 dark:text-green-300">Position GPS enregistrée. Saisissez aussi une rue ou un quartier pour aider les équipes à vous trouver.</p>}
+              {mapUrl && mapQuery.length >= 4 && <section className="mt-4 overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-white/10 dark:bg-[#222A4A]" aria-label="Aperçu de la localisation">
+                <div className="flex items-center justify-between gap-3 px-3 py-2"><p className="text-xs font-semibold text-gray-600 dark:text-gray-300">Aperçu Google Maps</p><a className="text-xs font-semibold text-[#2B4C9B] underline dark:text-blue-300" href={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}`} target="_blank" rel="noreferrer">Ouvrir dans Maps</a></div>
+                <iframe title="Aperçu Google Maps du lieu du signalement" src={mapUrl} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="block aspect-[16/9] w-full border-0" />
+              </section>}
             </div>
 
             <div>
@@ -169,10 +176,10 @@ export default function NewReport() {
               </ul>
             </section>
             <section className="e2c-card rounded-3xl border border-white/90 bg-white/80 p-6 text-[#1B1F3B] shadow-xl shadow-slate-200/50 backdrop-blur-xl dark:border-white/10 dark:bg-[#1B1F3B]/80 dark:text-white dark:shadow-none">
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-[#1B1F3B] dark:bg-amber-300/10 dark:text-[#F4B436]"><ClipboardCheck className="h-5 w-5" /></div>
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-100 text-[#1B1F3B] dark:bg-amber-300/10 dark:text-[#F5B942]"><ClipboardCheck className="h-5 w-5" /></div>
               <h2 className="font-bold">Après l’envoi</h2>
               <p className="mt-2 text-sm leading-relaxed text-gray-500 dark:text-gray-300">Retrouvez votre signalement et consultez l’évolution de son statut depuis votre espace.</p>
-              <Link to="/mes-signalements" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#2B4C9B] hover:underline dark:text-[#F4B436]">Mes signalements <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/mes-signalements" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#2B4C9B] hover:underline dark:text-[#F5B942]">Mes signalements <ArrowRight className="h-4 w-4" /></Link>
             </section>
           </aside>
         </div>

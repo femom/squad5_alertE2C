@@ -21,7 +21,7 @@ export default function CitizenDesktopHeader({ active }) {
     <header className="hidden w-full items-center justify-between border-b border-gray-200/70 bg-[#F7F6F0]/90 px-8 py-4 backdrop-blur-xl dark:border-white/10 dark:bg-[#0E1226]/95 md:flex">
       <Link to="/accueil" aria-label="Accueil E2C" className="flex items-center gap-2">
         <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1B1F3B] text-white" aria-hidden="true"><Zap className="h-5 w-5" /></span>
-        <span className="text-xl font-extrabold tracking-tight text-[#1B1F3B] dark:text-white">E2C<span className="text-[#F4B436]">.</span></span>
+        <span className="text-xl font-extrabold tracking-tight text-[#1B1F3B] dark:text-white">E2C<span className="text-[#F5B942]">.</span></span>
       </Link>
       <nav aria-label="Navigation principale" className="flex items-center gap-2">
         <Link to="/accueil" className={navClass('home')}>Accueil</Link>
@@ -30,7 +30,7 @@ export default function CitizenDesktopHeader({ active }) {
       </nav>
       <div className="flex items-center gap-3">
         <ThemeToggle compact />
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 font-bold text-[#1B1F3B]" aria-label={firstName ? `Profil de ${name}` : 'Profil utilisateur'}>{firstName.charAt(0).toUpperCase()}</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F5B942] font-bold text-[#1B1F3B]" aria-label={firstName ? `Profil de ${name}` : 'Profil utilisateur'}>{firstName.charAt(0).toUpperCase()}</span>
         <button onClick={logout} className="flex items-center gap-2 text-sm font-semibold text-gray-500 transition hover:text-red-600 dark:text-gray-300"><LogOut className="h-4 w-4" />Déconnexion</button>
       </div>
     </header>

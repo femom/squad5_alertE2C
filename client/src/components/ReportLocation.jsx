@@ -1,6 +1,6 @@
 import { MapPin } from 'lucide-react'
 
-function coordinatesFor(report) {
+export function coordinatesFor(report) {
   const rawLatitude = report.latitude ?? report.lat
   const rawLongitude = report.longitude ?? report.lon ?? report.lng
   const latitude = Number(rawLatitude)

@@ -110,7 +110,7 @@ export default function MyReports() {
             <header className="mb-6 flex items-center justify-between">
               <Link to="/accueil" aria-label="Retour à l'accueil citoyen" className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white/70 text-2xl leading-none hover:bg-gray-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10">‹</Link>
               <h1 className="text-base font-bold">Mes signalements</h1>
-              <Link to="/nouveau-signalement" aria-label="Créer un signalement" className="yellow-flash flex h-10 w-10 items-center justify-center rounded-full"><PlusCircle className="h-6 w-6" /></Link>
+              <Link to="/nouveau-signalement" aria-label="Créer un signalement" className="yellow-flash yellow-flash-icon flex h-10 w-10 items-center justify-center rounded-full"><PlusCircle className="h-6 w-6" /></Link>
             </header>
             <Counter count={enCours} />
             {reportContent}

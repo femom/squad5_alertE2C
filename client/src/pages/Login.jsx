@@ -31,13 +31,13 @@ export default function Login() {
 
   return (
     <div className="auth-split h-screen w-full min-h-screen grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-      <section className="auth-pane w-full flex flex-col justify-center min-h-screen p-4 md:h-full md:min-h-0 md:px-8 lg:px-16 md:overflow-y-auto">
-        <div className="auth-card w-full max-w-md mx-auto p-8 rounded-3xl bg-white/60 backdrop-blur-xl border border-white/80 shadow-2xl shadow-slate-200/50 dark:border-white/10">
+      <section className="auth-pane w-full flex flex-col justify-center min-h-0 h-full p-4 md:px-8 lg:px-16">
+        <div className="auth-card w-full max-w-lg mx-auto p-8 rounded-3xl bg-white/60 backdrop-blur-xl border border-white/80 shadow-2xl shadow-slate-200/50 dark:border-white/10">
         <div className="mb-3 flex justify-end"><ThemeToggle compact /></div>
         <Link to="/" className="inline-flex mb-7" aria-label="Accueil E2C">
           <span className="inline-flex items-center gap-2 text-2xl font-extrabold tracking-tight text-[#1B1F3B] dark:text-white">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#1B1F3B] text-[#F4B436]"><Zap className="h-5 w-5" fill="currentColor" aria-hidden="true" /></span>
-            <span>E2C<span className="text-[#F4B436]">.</span></span>
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#1B1F3B] text-[#F5B942]"><Zap className="h-5 w-5" aria-hidden="true" /></span>
+            <span>E2C<span className="text-[#F5B942]">.</span></span>
           </span>
         </Link>
 
@@ -77,7 +77,7 @@ export default function Login() {
             Mot de passe
           </label>
           <div className="relative mb-4">
-            <input id="citizen-login-password" type={passwordVisible ? "text" : "password"} required value={motDePasse} onChange={(e) => setMotDePasse(e.target.value)} className="auth-input w-full bg-white/80 pr-12 backdrop-blur-sm border border-gray-200/80 rounded-xl focus:bg-white" />
+            <input id="citizen-login-password" type={passwordVisible ? "text" : "password"} required value={motDePasse} onChange={(e) => setMotDePasse(e.target.value)} placeholder="Votre mot de passe" className="auth-input w-full bg-white/80 pr-12 backdrop-blur-sm border border-gray-200/80 rounded-xl focus:bg-white" />
             <button type="button" aria-label={passwordVisible ? "Masquer le mot de passe" : "Afficher le mot de passe"} aria-pressed={passwordVisible} onClick={() => setPasswordVisible((visible) => !visible)} className="absolute inset-y-0 right-3 z-10 inline-flex cursor-pointer items-center justify-center bg-transparent p-1 text-gray-500 hover:text-[#2B4C9B] dark:text-gray-300" style={{ pointerEvents: 'auto' }}>{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
           </div>
 
@@ -94,7 +94,7 @@ export default function Login() {
 
           <p className="text-center text-sm text-gray-500 mt-4">
             Pas de compte ?{" "}
-            <Link to="/register" className="font-semibold text-[#2B4C9B] underline dark:text-[#F4B436]">
+            <Link to="/register" className="font-semibold text-[#2B4C9B] underline dark:text-[#F5B942]">
               S'inscrire
             </Link>
           </p>

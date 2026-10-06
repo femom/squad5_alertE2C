@@ -37,6 +37,7 @@ export function ThemeProvider({ children }) {
     const y = bounds ? bounds.top + bounds.height / 2 : window.innerHeight / 2
     document.documentElement.style.setProperty('--theme-flash-x', `${x}px`)
     document.documentElement.style.setProperty('--theme-flash-y', `${y}px`)
+    document.documentElement.style.setProperty('--theme-reveal-color', nextTheme === 'dark' ? '#0E1226' : '#F7F6F0')
     setFlashActive(true)
 
     toggleTimers.current = [
@@ -44,12 +45,13 @@ export function ThemeProvider({ children }) {
         applyThemeClass(nextTheme)
         localStorage.setItem('theme', nextTheme)
         setTheme(nextTheme)
-      }, 150),
+      }, 0),
       setTimeout(() => {
         setFlashActive(false)
         document.documentElement.style.removeProperty('--theme-flash-x')
         document.documentElement.style.removeProperty('--theme-flash-y')
-      }, 300)
+        document.documentElement.style.removeProperty('--theme-reveal-color')
+      }, 620)
     ]
   }
   return (

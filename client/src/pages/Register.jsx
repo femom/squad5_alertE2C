@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Zap } from "lucide-react";
 import { loginCitoyen, registerCitoyen, setAuthToken, setAuthUser } from "../lib/api.js";
 import BrandPanel from "../components/BrandPanel.jsx";
 import ThemeToggle from "../components/ThemeToggle.jsx";
@@ -33,11 +33,14 @@ export default function Register() {
 
   return (
     <div className="auth-split h-screen w-full min-h-screen grid grid-cols-1 md:grid-cols-2 overflow-hidden">
-      <section className="auth-pane w-full flex flex-col justify-center min-h-screen p-4 md:h-full md:min-h-0 md:px-8 lg:px-16 md:overflow-y-auto">
-        <div className="auth-card w-full max-w-md mx-auto p-8 rounded-3xl bg-white/60 backdrop-blur-xl border border-white/80 shadow-2xl shadow-slate-200/50 dark:border-white/10">
+      <section className="auth-pane w-full flex flex-col justify-center min-h-0 h-full p-4 md:px-8 lg:px-16">
+        <div className="auth-card w-full max-w-lg mx-auto p-8 rounded-3xl bg-white/60 backdrop-blur-xl border border-white/80 shadow-2xl shadow-slate-200/50 dark:border-white/10">
         <div className="mb-3 flex justify-end"><ThemeToggle compact /></div>
         <Link to="/" className="inline-flex mb-7" aria-label="Accueil E2C">
-          <img src="/e2c-logo.svg" alt="E2C" className="w-32 h-auto" />
+          <span className="inline-flex items-center gap-2 text-2xl font-extrabold tracking-tight text-[#1B1F3B] dark:text-white">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#1B1F3B] text-[#F5B942]"><Zap className="h-5 w-5" aria-hidden="true" /></span>
+            <span>E2C<span className="text-[#F5B942]">.</span></span>
+          </span>
         </Link>
 
         <main className="auth-form-stage">
@@ -88,7 +91,7 @@ export default function Register() {
             Mot de passe
           </label>
           <div className="relative mb-4">
-            <input id="citizen-register-password" type={passwordVisible ? "text" : "password"} required value={motDePasse} onChange={(e) => setMotDePasse(e.target.value)} className="auth-input w-full bg-white/80 pr-12 backdrop-blur-sm border border-gray-200/80 rounded-xl focus:bg-white" />
+            <input id="citizen-register-password" type={passwordVisible ? "text" : "password"} required value={motDePasse} onChange={(e) => setMotDePasse(e.target.value)} placeholder="Choisissez un mot de passe" className="auth-input w-full bg-white/80 pr-12 backdrop-blur-sm border border-gray-200/80 rounded-xl focus:bg-white" />
             <button type="button" aria-label={passwordVisible ? "Masquer le mot de passe" : "Afficher le mot de passe"} aria-pressed={passwordVisible} onClick={() => setPasswordVisible((visible) => !visible)} className="absolute inset-y-0 right-3 z-10 inline-flex cursor-pointer items-center justify-center bg-transparent p-1 text-gray-500 hover:text-[#2B4C9B] dark:text-gray-300" style={{ pointerEvents: 'auto' }}>{passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
           </div>
 
@@ -103,7 +106,7 @@ export default function Register() {
             {!chargement && <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" /></svg>}
           </button>
           <p className="text-center text-sm text-gray-500 mt-4">
-            Déjà un compte ? <Link to="/login" className="text-navy font-medium underline">Se connecter</Link>
+            Déjà un compte ? <Link to="/login" className="font-semibold text-[#2B4C9B] underline dark:text-[#F5B942]">Se connecter</Link>
           </p>
         </form>
         </main>
