@@ -32,6 +32,8 @@ app.use('/api/auth', authRoutes) // AE-1 — US-01, US-02, US-03
 app.use('/api/reports', reportsRoutes) // AE-2 / AE-3 — US-04 à US-13
 app.use('/api/agent', agentRoutes) // AE-4 — US-14 à US-16
 
+// Route de santé principale pour UptimeRobot & Render
+app.get('/', (req, res) => res.json({ status: 'ok', message: 'ALERT E2C API is running' }))
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }))
 
 app.use(errorHandler) // middleware d'erreur toujours en dernier
